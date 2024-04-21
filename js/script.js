@@ -1,15 +1,77 @@
-// toggle class active
+// toggle class active untuk hamburger menu
 const navbarNav = document.querySelector(".navbar-nav");
 // ketika hamburger menu diklik
-document.querySelector("#hamburger-menu").onclick = () => {
+document.querySelector("#hamburger-menu").onclick = (e) => {
   navbarNav.classList.toggle("active");
+  e.preventDefault();
 };
 
-// klik diluar sidebar untuk menghilangkan nav
+// toggle class active untuk search box
+const searchForm = document.querySelector(".search-form");
+const searchBox = document.querySelector("#search-box");
+// ketika icon search diklik
+document.querySelector("#search-button").onclick = (e) => {
+  searchForm.classList.toggle("active");
+  searchBox.focus();
+  e.preventDefault();
+};
+
+// toggle class active untuk shopping cart
+const shoppingCart = document.querySelector(".shopping-cart");
+// ketika icon shopping cart diklik
+document.querySelector("#shopping-cart").onclick = (e) => {
+  shoppingCart.classList.toggle("active");
+  e.preventDefault();
+};
+
+// klik diluar element
 const hamburger = document.querySelector("#hamburger-menu");
+const searchButton = document.querySelector("#search-button");
+const shoppingCartButton = document.querySelector("#shopping-cart");
 
 document.addEventListener("click", function (e) {
   if (!hamburger.contains(e.target) && !navbarNav.contains(e.target)) {
     navbarNav.classList.remove("active");
   }
+
+  if (!searchButton.contains(e.target) && !searchForm.contains(e.target)) {
+    searchForm.classList.remove("active");
+  }
+
+  if (!shoppingCartButton.contains(e.target) && !shoppingCart.contains(e.target)) {
+    shoppingCart.classList.remove("active");
+  }
 });
+
+// Modal Box
+const itemDetailButtons = document.querySelectorAll(".item-detail-button");
+
+itemDetailButtons.forEach((btn) => {
+  btn.onclick = (e) => {
+    const modalId = btn.getAttribute("data-modal-id");
+    const modal = document.querySelector(`#${modalId}`);
+    if (modal) {
+      modal.style.display = "flex";
+    }
+    e.preventDefault();
+  };
+});
+
+// klik tombol close modal
+document.querySelectorAll(".modal .close-icon").forEach((closeBtn) => {
+  closeBtn.onclick = (e) => {
+    const modal = closeBtn.closest(".modal");
+    if (modal) {
+      modal.style.display = "none";
+    }
+    e.preventDefault();
+  };
+});
+
+
+// klik diluar modal
+window.onclick = (e) => {
+  if (e.target.classList.contains("modal")) {
+    e.target.style.display = "none";
+  }
+};

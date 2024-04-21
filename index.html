@@ -23,16 +23,53 @@
 
       <div class="navbar-nav">
         <a href="#home">Home</a>
-        <a href="#about">About Me</a>
+        <a href="#about">About</a>
         <a href="#catalog">Catalog</a>
+        <a href="#shop">Shop</a>
         <a href="#contact">Contact</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
         <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
+
+      <!-- Search From Start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="Search here..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search From End -->
+
+      <!-- Shopping Cart Start -->
+      <div class="shopping-cart">
+        <div class="cart-item">
+          <img src="img/product/1.jpg" alt="Gibson" />
+          <div class="item-detail">
+            <h3>Gibson Memphis ES-330</h3>
+            <div class="item-price">IDR 64.000.000</div>
+          </div>
+          <i data-feather="trash-2" class="remove-item"></i>
+        </div>
+        <div class="cart-item">
+          <img src="img/product/3.jpg" alt="Fender" />
+          <div class="item-detail">
+            <h3>Fender Stratocaster</h3>
+            <div class="item-price">IDR 14.900.000</div>
+          </div>
+          <i data-feather="trash-2" class="remove-item"></i>
+        </div>
+        <div class="cart-item">
+          <img src="img/product/4.jpg" alt="Taylor" />
+          <div class="item-detail">
+            <h3>Taylor 324CE</h3>
+            <div class="item-price">IDR 16.300.000</div>
+          </div>
+          <i data-feather="trash-2" class="remove-item"></i>
+        </div>
+      </div>
+      <!-- Shopping Cart End -->
     </nav>
     <!-- Navbar End -->
 
@@ -48,7 +85,7 @@
 
     <!-- About Section Start -->
     <section id="about" class="about">
-      <h2><span>About</span> Me</h2>
+      <h2><span>About</span> US</h2>
 
       <div class="row">
         <div class="about-img">
@@ -92,6 +129,136 @@
       </div>
     </section>
     <!-- Catalog Section End -->
+
+    <!-- Shop Section Start -->
+    <section class="shop" id="shop">
+      <h2>Our <span>Product</span></h2>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea dolor aliquam exercitationem amet molestias nobis!</p>
+      <div class="row">
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-1"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/product/1.jpg" alt="Gibson" />
+          </div>
+          <div class="product-content">
+            <h3>Gibson Memphis ES-330</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 64.900.000 <span>IDR 67.000.000</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-2"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/product/2.jpg" alt="Cort" />
+          </div>
+          <div class="product-content">
+            <h3>Cort EVL-K4 BKS</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 8.845.000 <span>IDR 9.000.000</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-3"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/product/3.jpg" alt="Fender" />
+          </div>
+          <div class="product-content">
+            <h3>Fender Stratocaster</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 14.900.000 <span>16.500.000</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-4"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/product/4.jpg" alt="Taylor" />
+          </div>
+          <div class="product-content">
+            <h3>Taylor 324CE</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 16.300.000 <span>17.000.000</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-5"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/product/5.jpg" alt="Yamaha" />
+          </div>
+          <div class="product-content">
+            <h3>Yamaha Classic Guitar</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 2.300.000 <span>3.000.000</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-6"><i data-feather="eye"></i></a>
+          </div>
+          <div class="product-image">
+            <img src="img/product/6.jpg" alt="Epiphone" />
+          </div>
+          <div class="product-content">
+            <h3>Epiphone Semi Hollow</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 7.450.000 <span>8.000.000</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Shop Section Start -->
 
     <!-- Contact Section Start -->
     <section id="contact" class="contact">
@@ -145,6 +312,123 @@
       </div>
     </footer>
     <!-- Footer End -->
+
+    <!-- Modal Box Item Detail Start -->
+    <div class="modal" id="item-detail-modal-1">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/product/1.jpg" alt="Gibson" />
+          <div class="product-content">
+            <h3>Gibson Memphis ES-330</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <div class="product-price">IDR 64.900.000 <span>IDR 67.000.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal-2">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/product/2.jpg" alt="Cort" />
+          <div class="product-content">
+            <h3>Cort EVL-K4 BKS</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star"></i>
+            <div class="product-price">IDR 8.845.000 <span>IDR 67.000.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal-3">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/product/3.jpg" alt="Fender" />
+          <div class="product-content">
+            <h3>Fender Stratocaster</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star"></i>
+            <div class="product-price">IDR 14.900.000 <span>IDR 67.000.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal-4">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/product/4.jpg" alt="Taylor" />
+          <div class="product-content">
+            <h3>Taylor 324CE</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star"></i>
+            <div class="product-price">IDR 16.300.000 <span>IDR 67.000.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal-5">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/product/5.jpg" alt="Yamaha" />
+          <div class="product-content">
+            <h3>Yamaha Classic Guitar</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star"></i>
+            <div class="product-price">IDR 2.300.000 <span>IDR 67.000.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="item-detail-modal-6">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/product/6.jpg" alt="Epiphone" />
+          <div class="product-content">
+            <h3>Epiphone Semi Hollow</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star" class="star-full"></i>
+            <i data-feather="star"></i>
+            <div class="product-price">IDR 7.50.000 <span>IDR 67.000.000</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Box Item Detail End -->
 
     <!-- Feather Icons -->
     <script>
