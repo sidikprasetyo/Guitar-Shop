@@ -15,10 +15,21 @@
 
     <!-- My Style -->
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- AlpineJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- App -->
+    <script src="src/app.js" async></script>
+
+    <!-- Midtrans -->
+    <script type="text/javascript"
+    src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="SB-Mid-client-eW6o07wSl9yEFfT-"></script>
   </head>
   <body>
     <!-- Navbar Start -->
-    <nav class="navbar">
+    <nav class="navbar" x-data>
       <a href="#" class="navbar-logo">Legiun<span>Guitar</span></a>
 
       <div class="navbar-nav">
@@ -30,9 +41,14 @@
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search-button"><i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
-        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+        <a href="#" id="search-button">
+          <i data-feather="search"></i>
+        </a>
+        <a href="#" id="shopping-cart">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="#" id="hamburger-menu"> <i data-feather="menu"></i></a>
       </div>
 
       <!-- Search From Start -->
@@ -44,15 +60,47 @@
 
       <!-- Shopping Cart Start -->
       <div class="shopping-cart">
-        <div class="cart-item">
-          <img src="img/product/1.jpg" alt="Gibson" />
-          <div class="item-detail">
-            <h3>Gibson Memphis ES-330</h3>
-            <div class="item-price">IDR 64.000.000</div>
+        <template x-for="(item, index) in $store.cart.items" x-key="index">
+          <div class="cart-item">
+            <img :src="`img/product/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span>&times;
+                <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button>&equals;
+                <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
           </div>
-          <i data-feather="trash-2" class="remove-item"></i>
+        </template>
+        <h4 style="margin-top: 1rem" x-show="!$store.cart.items.length">Cart is Empty</h4>
+        <h4 x-show="$store.cart.items.length"><span x-text="rupiah($store.cart.total)"></span></h4>
+
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form action="" id="checkoutForm">
+            <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+            <input type="hidden" name="total" x-model="$store.cart.total">
+            <h5>Customer Detail</h5>
+
+            <label for="name"
+              >Name
+              <input type="text" name="name" id="name" />
+            </label>
+            <label for="email"
+              >Email
+              <input type="email" name="email" id="email" />
+            </label>
+            <label for="phone"
+              >Phone
+              <input type="number" name="phone" id="phone" autocomplete="off" />
+            </label>
+
+            <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
+          </form>
         </div>
-        <div class="cart-item">
+        <!-- <div class="cart-item">
           <img src="img/product/3.jpg" alt="Fender" />
           <div class="item-detail">
             <h3>Fender Stratocaster</h3>
@@ -67,7 +115,7 @@
             <div class="item-price">IDR 16.300.000</div>
           </div>
           <i data-feather="trash-2" class="remove-item"></i>
-        </div>
+        </div> -->
       </div>
       <!-- Shopping Cart End -->
     </nav>
@@ -78,7 +126,7 @@
       <main class="content">
         <h1>Let's Upgrade Your <span>Music Gear.</span></h1>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi, doloribus.</p>
-        <a href="#" class="cta">Buy Now!</a>
+        <a href="#shop" class="cta">Buy Now!</a>
       </main>
     </section>
     <!-- Hero Section End -->
@@ -131,131 +179,49 @@
     <!-- Catalog Section End -->
 
     <!-- Shop Section Start -->
-    <section class="shop" id="shop">
+    <section class="shop" id="shop" x-data="shop">
       <h2>Our <span>Product</span></h2>
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea dolor aliquam exercitationem amet molestias nobis!</p>
       <div class="row">
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-1"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/product/1.jpg" alt="Gibson" />
-          </div>
-          <div class="product-content">
-            <h3>Gibson Memphis ES-330</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)"
+                ><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#shopping-cart" /></svg
+              ></a>
+              <a href="#" class="item-detail-button">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#eye" />
+                </svg>
+              </a>
             </div>
-            <div class="product-price">IDR 64.900.000 <span>IDR 67.000.000</span></div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-2"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/product/2.jpg" alt="Cort" />
-          </div>
-          <div class="product-content">
-            <h3>Cort EVL-K4 BKS</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
+            <div class="product-image">
+              <img :src="`img/product/${item.img}`" :alt="item.name" />
             </div>
-            <div class="product-price">IDR 8.845.000 <span>IDR 9.000.000</span></div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-3"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/product/3.jpg" alt="Fender" />
-          </div>
-          <div class="product-content">
-            <h3>Fender Stratocaster</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
+            <div class="product-content">
+              <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+              </div>
+              <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
             </div>
-            <div class="product-price">IDR 14.900.000 <span>16.500.000</span></div>
           </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-4"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/product/4.jpg" alt="Taylor" />
-          </div>
-          <div class="product-content">
-            <h3>Taylor 324CE</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
-            </div>
-            <div class="product-price">IDR 16.300.000 <span>17.000.000</span></div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-5"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/product/5.jpg" alt="Yamaha" />
-          </div>
-          <div class="product-content">
-            <h3>Yamaha Classic Guitar</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
-              <i data-feather="star"></i>
-            </div>
-            <div class="product-price">IDR 2.300.000 <span>3.000.000</span></div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button" data-modal-id="item-detail-modal-6"><i data-feather="eye"></i></a>
-          </div>
-          <div class="product-image">
-            <img src="img/product/6.jpg" alt="Epiphone" />
-          </div>
-          <div class="product-content">
-            <h3>Epiphone Semi Hollow</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
-            </div>
-            <div class="product-price">IDR 7.450.000 <span>8.000.000</span></div>
-          </div>
-        </div>
+        </template>
       </div>
     </section>
     <!-- Shop Section Start -->
@@ -314,7 +280,7 @@
     <!-- Footer End -->
 
     <!-- Modal Box Item Detail Start -->
-    <div class="modal" id="item-detail-modal-1">
+    <div class="modal" id="item-detail-modal">
       <div class="modal-container">
         <a href="#" class="close-icon"><i data-feather="x"></i></a>
         <div class="modal-content">
@@ -328,101 +294,6 @@
             <i data-feather="star" class="star-full"></i>
             <i data-feather="star" class="star-full"></i>
             <div class="product-price">IDR 64.900.000 <span>IDR 67.000.000</span></div>
-            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal" id="item-detail-modal-2">
-      <div class="modal-container">
-        <a href="#" class="close-icon"><i data-feather="x"></i></a>
-        <div class="modal-content">
-          <img src="img/product/2.jpg" alt="Cort" />
-          <div class="product-content">
-            <h3>Cort EVL-K4 BKS</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star"></i>
-            <div class="product-price">IDR 8.845.000 <span>IDR 67.000.000</span></div>
-            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal" id="item-detail-modal-3">
-      <div class="modal-container">
-        <a href="#" class="close-icon"><i data-feather="x"></i></a>
-        <div class="modal-content">
-          <img src="img/product/3.jpg" alt="Fender" />
-          <div class="product-content">
-            <h3>Fender Stratocaster</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star"></i>
-            <div class="product-price">IDR 14.900.000 <span>IDR 67.000.000</span></div>
-            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal" id="item-detail-modal-4">
-      <div class="modal-container">
-        <a href="#" class="close-icon"><i data-feather="x"></i></a>
-        <div class="modal-content">
-          <img src="img/product/4.jpg" alt="Taylor" />
-          <div class="product-content">
-            <h3>Taylor 324CE</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star"></i>
-            <div class="product-price">IDR 16.300.000 <span>IDR 67.000.000</span></div>
-            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal" id="item-detail-modal-5">
-      <div class="modal-container">
-        <a href="#" class="close-icon"><i data-feather="x"></i></a>
-        <div class="modal-content">
-          <img src="img/product/5.jpg" alt="Yamaha" />
-          <div class="product-content">
-            <h3>Yamaha Classic Guitar</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star"></i>
-            <div class="product-price">IDR 2.300.000 <span>IDR 67.000.000</span></div>
-            <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal" id="item-detail-modal-6">
-      <div class="modal-container">
-        <a href="#" class="close-icon"><i data-feather="x"></i></a>
-        <div class="modal-content">
-          <img src="img/product/6.jpg" alt="Epiphone" />
-          <div class="product-content">
-            <h3>Epiphone Semi Hollow</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus perspiciatis ipsa dicta voluptate harum porro omnis quae, quibusdam error a, magni consequatur impedit quasi sed.</p>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star" class="star-full"></i>
-            <i data-feather="star"></i>
-            <div class="product-price">IDR 7.50.000 <span>IDR 67.000.000</span></div>
             <a href="#"><i data-feather="shopping-cart"></i><span>Add to cart</span></a>
           </div>
         </div>

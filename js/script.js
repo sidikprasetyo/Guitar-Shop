@@ -44,34 +44,26 @@ document.addEventListener("click", function (e) {
 });
 
 // Modal Box
+const itemDetailModal = document.querySelector("#item-detail-modal");
 const itemDetailButtons = document.querySelectorAll(".item-detail-button");
 
-itemDetailButtons.forEach((btn) => {
-  btn.onclick = (e) => {
-    const modalId = btn.getAttribute("data-modal-id");
-    const modal = document.querySelector(`#${modalId}`);
-    if (modal) {
-      modal.style.display = "flex";
-    }
+itemDetailButtons.forEach(function(btn) {
+  btn.addEventListener("click", function (e) {
+    itemDetailModal.style.display = "flex";
     e.preventDefault();
-  };
+  });
 });
+
 
 // klik tombol close modal
-document.querySelectorAll(".modal .close-icon").forEach((closeBtn) => {
-  closeBtn.onclick = (e) => {
-    const modal = closeBtn.closest(".modal");
-    if (modal) {
-      modal.style.display = "none";
-    }
-    e.preventDefault();
-  };
-});
+document.querySelector(".modal .close-icon").onclick = (e) => {
+  itemDetailModal.style.display = "none";
+  e.preventDefault();
+};
 
-
-// klik diluar modal
+// klik di luar modal
 window.onclick = (e) => {
-  if (e.target.classList.contains("modal")) {
-    e.target.style.display = "none";
+  if (e.target === itemDetailModal) {
+    itemDetailModal.style.display = "none";
   }
 };
