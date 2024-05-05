@@ -1,2 +1,2 @@
 Link Web : 
-[Guitar Shop](https://sidikprast.000webhostapp.com/Gitar-Shop/)
+[Guitar Shop](http://sidikprasetyo.lovestoblog.com/Gitar-Shop/)
